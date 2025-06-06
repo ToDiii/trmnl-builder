@@ -1,14 +1,9 @@
 import React from 'react'
-import { View } from '@usetrmnl/framework'
 import '@usetrmnl/framework/dist/style.css'
+import IndexPage from './pages/IndexPage'
 
 function App() {
-  return (
-    <div>
-      <h1>TRMNL Builder</h1>
-      <View />
-    </div>
-  )
+  return <IndexPage />
 }
 
 export default App
