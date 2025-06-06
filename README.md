@@ -28,6 +28,20 @@ docker-compose up
 
 Backend erreichbar unter http://localhost:5002, Frontend unter http://localhost:3000.
 
+### Beispiele
+
+**Entwicklung**
+
+```bash
+docker-compose up frontend backend
+```
+
+**Produktion**
+
+```bash
+docker-compose up frontend-prod backend
+```
+
 ## Lokale Ports
 
 - Frontend: http://localhost:3000
