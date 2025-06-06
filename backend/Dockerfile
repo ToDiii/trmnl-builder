@@ -1,12 +1,18 @@
 FROM node:18
+
 WORKDIR /app
 
-# Nur package.json und lockfile kopieren und installieren
-COPY package*.json ./
-RUN npm install
+# Copy package.json und package-lock.json für stabilen Build
+COPY package.json package-lock.json ./
 
-# Restliche Dateien kopieren, node_modules dabei ignorieren (siehe .dockerignore)
+# Installiere exakt definierte Abhängigkeiten
+RUN npm ci
+
+# Restlichen Code kopieren
 COPY . .
 
+# Exponiere API Port
 EXPOSE 5001
-CMD ["npm", "run", "start"]
+
+# Starte die Anwendung
+CMD ["npm", "start"]
