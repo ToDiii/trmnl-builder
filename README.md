@@ -1,55 +1,60 @@
-trmnl-builder
+# trmnl-builder
 
-Dieses Repository enthält eine Express.js + Vite.js Anwendung zum Exportieren von TRMNL Templates.
+## 1️⃣ Projektbeschreibung
 
-📘 Siehe TRMNL_GUIDELINE.md für alle Design- und Hardwareregeln.
+Express.js-Backend und Vite.js-Frontend zum Export von TRMNL Templates. Die Anwendung läuft komplett in Docker-Containern und kann plattformübergreifend (Mac → Linux → Docker → CI/CD) eingesetzt werden.
 
-⚙️ Projekt Setup (Docker-basiert, Cross-Plattform)
+## 2️⃣ Verweis auf TRMNL_GUIDELINE.md
 
-1️⃣ Voraussetzung
-Docker + Docker Compose v2+
-Keine vorhandenen node_modules → Build erfolgt immer im Container
-2️⃣ Build & Start
-# Container stoppen + alte Volumes bereinigen
+Alle Design- und Hardwareregeln stehen im [TRMNL_GUIDELINE.md](./TRMNL_GUIDELINE.md).
+
+## 3️⃣ Setup Docker-basiert
+
+* Docker und Docker Compose v2+ erforderlich
+* **Keine** lokalen *node_modules* im Repository – der Build erfolgt im Container
+
+## 4️⃣ Build & Start
+
+```bash
+# Container stoppen und alte Volumes bereinigen
 docker-compose down --volumes --remove-orphans
 
-# Frischen Build durchführen (empfohlen bei Änderungen oder Mac → Linux Build)
+# Frischen Build erstellen (empfohlen bei Änderungen oder Mac → Linux Build)
 docker-compose build --no-cache
 
 # Container starten
 docker-compose up
-Backend läuft auf: http://localhost:3000
-Frontend (Vite Dev Server) läuft auf: http://localhost:3000
-3️⃣ Hinweise zu Vite + esbuild in Docker
-Beim Einsatz von Vite im Container muss esbuild korrekt plattformabhängig installiert werden.
+```
 
-👉 Vorgehen:
+Backend erreichbar unter http://localhost:5001, Frontend unter http://localhost:3000.
 
-keine node_modules ins Repo committen
-im Container stets npm ci nutzen (Dockerfile so konfiguriert)
-package-lock.json immer aktuell halten
-Alternativ:
+## 5️⃣ Hinweise zu Vite + esbuild im Container
 
-esbuild-wasm verwenden → universell plattformfähig, aber langsamer (~10x)
-4️⃣ Backend: .env Handling
-Das Backend nutzt dotenv → .env Datei liegt in:
+* `esbuild-wasm` ist optional sinnvoll, wenn native Build-Probleme auftreten (plattformunabhängig, aber langsamer)
+* Im Container wird `npm ci` genutzt, um immer exakt die im `package-lock.json` definierten Versionen zu installieren
+* **Keine** *node_modules* ins Repository committen
 
-/backend/.env
-Beispiel .env:
+## 6️⃣ Backend .env Handling
 
-PORT=3000
-5️⃣ Compose Best Practices
-docker-compose.yml ist optimiert für:
+Das Backend nutzt `dotenv`. Beispiel für `backend/.env`:
 
-restart: unless-stopped
-Logging Rotation
-explizite Build Contexts (./frontend / ./backend)
-saubere Volumes für hot reload / persistente Daten
-Cross-Plattform Builds (Mac → Linux → Docker → CI/CD)
-6️⃣ Update Workflow (für Mac-Nutzer empfohlen)
-Wenn du lokal npm install ausführst:
+```
+PORT=5000
+```
 
-# Vor Build im Container:
+## 7️⃣ Docker Compose Best Practices
+
+* `restart: unless-stopped`
+* Logging-Rotation per `json-file` Treiber
+* Build-Context explizit gesetzt (`./frontend` bzw. `./backend`)
+* Volumes nur dort mounten, wo es für Hot Reload benötigt wird
+* Hinweis auf Cross-Plattform Builds (Mac → Linux → Docker → CI/CD)
+
+## 8️⃣ Update Workflow für Mac-Nutzer
+
+Um einen *esbuild* "platform mismatch" zu vermeiden, sollten lokale Abhängigkeiten vor dem Container-Build entfernt und neu generiert werden:
+
+```bash
 cd frontend
 rm -rf node_modules package-lock.json
 npm install --package-lock-only
@@ -57,12 +62,13 @@ cd ..
 
 docker-compose build --no-cache
 docker-compose up
-→ Damit wird esbuild passend für Linux installiert → Fehler esbuild platform mismatch wird vermieden.
+```
 
-📝 Zusammenfassung
+## 9️⃣ Zusammenfassung
 
-✅ Backend und Frontend laufen stabil im Container
-✅ keine Plattformprobleme mehr bei esbuild
-✅ .env Handling vorhanden
-✅ Compose.yml auf Best Practice optimiert
-✅ Cross-Plattform Build ist getestet & lauffähig
+✅ Cross-Plattform getestet und lauffähig
+
+✅ .env Handling aktiv
+
+✅ Compose optimiert nach Best Practices
+
