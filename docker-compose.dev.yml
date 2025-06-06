@@ -23,10 +23,9 @@ services:
   frontend:
     build:
       context: ./frontend
+      dockerfile: Dockerfile.dev
     ports:
       - "${FRONTEND_DEV_PORT:-3000}:3000"
-    volumes:
-      - ./frontend:/app
     env_file:
       - ./frontend/.env
     environment:
