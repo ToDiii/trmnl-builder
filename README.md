@@ -83,3 +83,17 @@ docker-compose up
 
 ✅ Compose optimiert nach Best Practices
 
+
+## Docker Compose: Dev vs. Prod
+
+### Entwicklung
+
+```bash
+docker-compose -f docker-compose.dev.yml up --build
+```
+
+### Produktion
+
+```bash
+docker-compose -f docker-compose.prod.yml up --build -d
+```
