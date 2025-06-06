@@ -5,7 +5,7 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      # Nur src und essentielle Files mounten, um node_modules Konflikte zu vermeiden
+      # Nur /src und index.html mounten für hot reload, nicht ganzes /app
       - ./frontend/src:/app/src
       - ./frontend/index.html:/app/index.html
       - ./frontend/vite.config.js:/app/vite.config.js
@@ -27,9 +27,8 @@ services:
     build:
       context: ./backend
     ports:
-      - "5001:5000"
+      - "5002:3000"   # Hier angepasst: 5002 → Hostport, 3000 → Containerport (Backend läuft auf 3000!)
     volumes:
-      # Backend darf komplett gemounted werden
       - ./backend:/app
     env_file:
       - ./backend/.env
