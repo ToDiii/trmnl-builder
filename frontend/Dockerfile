@@ -8,6 +8,9 @@ COPY package.json package-lock.json ./
 # Installiere exakt definierte Abhängigkeiten
 RUN npm ci
 
+# Ensure Vite is installed and cached in the image
+RUN npx vite --version
+
 # Restlichen Code kopieren
 COPY . .
 
