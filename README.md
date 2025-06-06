@@ -26,17 +26,28 @@ docker-compose build --no-cache
 docker-compose up
 ```
 
-Backend erreichbar unter http://localhost:5001, Frontend unter http://localhost:3000.
+Backend erreichbar unter http://localhost:5002, Frontend unter http://localhost:3000.
+
+## Lokale Ports
+
+- Frontend: http://localhost:3000
+- Backend API: http://localhost:5002
 
 ## 5️⃣ Hinweise zu Vite + esbuild im Container
 
+* `esbuild` wird explizit installiert, damit Vite auch im Container korrekt funktioniert
 * `esbuild-wasm` ist optional sinnvoll, wenn native Build-Probleme auftreten (plattformunabhängig, aber langsamer)
 * Im Container wird `npm ci` genutzt, um immer exakt die im `package-lock.json` definierten Versionen zu installieren
 * **Keine** *node_modules* ins Repository committen
 
-## 6️⃣ Backend .env Handling
+## Environment Variables
 
-Das Backend nutzt `dotenv`. Beispiel für `backend/.env`:
+Das Projekt erwartet eine `.env` Datei in Backend und Frontend:
+
+- `/backend/.env` – Konfiguration für das Express.js Backend
+- `/frontend/.env` – Konfiguration für das Vite Frontend
+
+Beispiel für `backend/.env`:
 
 ```
 PORT=5000
