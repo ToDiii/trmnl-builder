@@ -11,3 +11,9 @@ cd backend
 npm install
 npm start
 ```
+
+## Hinweis zu Vite und esbuild in Docker
+
+Beim Einsatz von Vite innerhalb eines Containers muss `esbuild` explizit als Abhängigkeit installiert werden.
+Nur so wird der native Build unabhängig von der Host-Plattform korrekt ausgeführt.
+Optional kann `esbuild-wasm` verwendet werden, um maximale Kompatibilität zu erreichen.
