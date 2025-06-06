@@ -3,7 +3,7 @@ services:
     build:
       context: ./frontend
     ports:
-      - "3000:3000"
+      - "${FRONTEND_DEV_PORT:-3000}:3000"
     volumes:
       # Nur /src und index.html mounten für hot reload, nicht ganzes /app
       - ./frontend/src:/app/src
@@ -27,7 +27,7 @@ services:
     build:
       context: ./backend
     ports:
-      - "5002:3000"   # Hier angepasst: 5002 → Hostport, 3000 → Containerport (Backend läuft auf 3000!)
+      - "${BACKEND_DEV_PORT:-5001}:5000"
     volumes:
       - ./backend:/app
     env_file:
@@ -46,7 +46,7 @@ services:
       context: ./backend
       dockerfile: Dockerfile.prod
     ports:
-      - "5000:5000"
+      - "${BACKEND_PROD_PORT:-5000}:5000"
     environment:
       NODE_ENV: production
       PORT: 5000
@@ -62,7 +62,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile.prod
     ports:
-      - "3000:80"
+      - "${FRONTEND_PROD_PORT:-8080}:80"
     depends_on:
       - backend-prod
     restart: unless-stopped
