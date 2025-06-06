@@ -5,7 +5,10 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./frontend:/app
+      # Nur src und essentielle Files mounten, um node_modules Konflikte zu vermeiden
+      - ./frontend/src:/app/src
+      - ./frontend/index.html:/app/index.html
+      - ./frontend/vite.config.js:/app/vite.config.js
     env_file:
       - ./frontend/.env
     environment:
@@ -19,12 +22,14 @@ services:
     depends_on:
       - backend
     command: npm run dev -- --host
+
   backend:
     build:
       context: ./backend
     ports:
       - "5001:5000"
     volumes:
+      # Backend darf komplett gemounted werden
       - ./backend:/app
     env_file:
       - ./backend/.env
