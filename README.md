@@ -109,5 +109,7 @@ docker-compose -f docker-compose.dev.yml up --build
 ### Produktion
 
 ```bash
-docker-compose -f docker-compose.prod.yml up --build -d
+# Production Build starten
+docker-compose -f docker-compose.prod.yml build
+docker-compose -f docker-compose.prod.yml up
 ```
