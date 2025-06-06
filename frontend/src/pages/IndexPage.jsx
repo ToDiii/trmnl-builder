@@ -1,11 +1,11 @@
 import React from 'react'
-import { View, Text } from '@usetrmnl/framework'
+import { Layout, Text } from '@trmnl/ui'
 
 function IndexPage() {
   return (
-    <View>
+    <Layout>
       <Text>Hello TRMNL!</Text>
-    </View>
+    </Layout>
   )
 }
 
