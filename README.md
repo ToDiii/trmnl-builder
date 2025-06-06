@@ -39,7 +39,7 @@ docker-compose up frontend backend
 **Produktion**
 
 ```bash
-docker-compose up frontend-prod backend
+docker-compose up frontend-prod backend-prod
 ```
 
 ## Lokale Ports
