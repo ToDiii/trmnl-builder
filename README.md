@@ -26,7 +26,7 @@ docker-compose build --no-cache
 docker-compose up
 ```
 
-Backend erreichbar unter http://localhost:5002, Frontend unter http://localhost:3000.
+Backend erreichbar unter http://localhost:5001, Frontend unter http://localhost:3000.
 
 ### Beispiele
 
@@ -45,7 +45,7 @@ docker-compose up frontend-prod backend-prod
 ## Lokale Ports
 
 - Frontend: http://localhost:3000
-- Backend API: http://localhost:5002
+- Backend API: http://localhost:5001
 
 ## 5️⃣ Hinweise zu Vite + esbuild im Container
 
@@ -56,15 +56,21 @@ docker-compose up frontend-prod backend-prod
 
 ## Environment Variables
 
-Das Projekt erwartet eine `.env` Datei in Backend und Frontend:
+Das Projekt erwartet eine `.env` Datei in Backend und Frontend sowie eine `.env` im Projektroot für Compose:
 
 - `/backend/.env` – Konfiguration für das Express.js Backend
 - `/frontend/.env` – Konfiguration für das Vite Frontend
+- `/.env` – Ports für Docker Compose (siehe `.env.example`)
 
-Beispiel für `backend/.env`:
+Beispiel für `backend/.env` und `/.env`:
 
 ```
 PORT=5000
+# Beispiel für /.env
+FRONTEND_DEV_PORT=3000
+FRONTEND_PROD_PORT=8080
+BACKEND_DEV_PORT=5001
+BACKEND_PROD_PORT=5000
 ```
 
 ## 7️⃣ Docker Compose Best Practices

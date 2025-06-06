@@ -4,7 +4,7 @@ services:
     build:
       context: ./backend
     ports:
-      - "5002:5000"
+      - "${BACKEND_DEV_PORT:-5001}:5000"
     volumes:
       - ./backend:/app
     env_file:
@@ -24,7 +24,7 @@ services:
     build:
       context: ./frontend
     ports:
-      - "3000:3000"
+      - "${FRONTEND_DEV_PORT:-3000}:3000"
     volumes:
       - ./frontend:/app
     env_file:
