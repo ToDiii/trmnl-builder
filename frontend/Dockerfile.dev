@@ -1,0 +1,19 @@
+FROM node:18
+
+WORKDIR /app
+
+# Copy package definitions
+COPY package.json package-lock.json ./
+
+# Install dependencies
+RUN npm install
+
+# Cache Vite install
+RUN npx vite --version
+
+# Copy remaining source
+COPY . .
+
+EXPOSE 5173
+
+CMD ["npm", "run", "dev", "--", "--host"]
